@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>Tic-Tac-Toe</title>
+    <link rel="stylesheet" type="text/css" href="styles/style.css" >
+  </head>
+  <body>
+    <div class="canvas-outer">
+      <div class="canvas-inner">
+        <div class="game-title">Tic-Tac-Toe</div>
+        <div class="info">
+          <div id="results"></div>
+          <button id="reset" onClick="resetbtn()">Reset</button>
+        </div>
+
+        <div class="player" style="background-color: yellow">Player-X
+          <div class="mv-sq-x" draggable="true" id="first-x"></div>
+        </div>
+        <br>
+        <div class="player" style="background-color: green">Player-O
+          <div class="mv-sq-o" draggable="true" id="first-o"></div>
+        </div>
+
+        <div class="board">
+          <div class=row>
+            <div class="square" id="top-l"></div>
+            <div class="square" id="top-c"></div>
+            <div class="square" id="top-r"></div>
+          </div>
+          <div class=row>
+            <div class="square" id="mid-l"></div>
+            <div class="square" id="mid-c"></div>
+            <div class="square" id="mid-r"></div>
+          </div>
+          <div class=row>
+            <div class="square" id="bot-l"></div>
+            <div class="square" id="bot-c"></div>
+            <div class="square" id="bot-r"></div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <script type="text/javascript" src="scripts/main.js"></script>
+  </body>
+</html>

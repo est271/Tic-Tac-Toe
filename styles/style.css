@@ -1,0 +1,122 @@
+body{
+  background:#999;
+}
+
+.canvas-outer{
+  height:auto;
+  width: auto;
+  background-color: #669999;
+  overflow-y: hidden;
+  border-radius: 10px;
+}
+
+.canvas-inner{
+  height:630px;
+  width: 730px;
+  overflow-y: hidden;
+  margin: 0px auto 0px auto;
+  padding: 10px 0px 0px 0px;
+
+}
+
+.info{
+  width: 705px;
+  height: 50px;
+  border: 3px solid #000;
+  border-radius: 10px;
+  padding: 5px 0px;
+}
+
+.game-title{
+  width: 705px;
+  height: 50px;
+  border: 3px solid #000;
+  border-radius: 10px;
+  text-align: center;
+  font: 40px sans-serif;
+  font-weight: bold;
+}
+
+#results{
+  width: 525px;
+  height: 40px;
+  border: 3px solid blue;
+  background-color: black;
+  color: white;
+  border-radius: 10px;
+  font: 20px sans-serif;
+  padding: 0px 0px 0px 5px;
+  line-height: 40px;
+  float: left;
+  margin-left: 15px;
+}
+#reset{
+  height: 45px;
+  width: 100px;
+  margin: 0px 0px 0px 30px;
+  font-size: 20px;
+}
+.board{
+  height: auto;
+  width: auto;
+  float: left;
+  position: relative;
+  bottom: 455px;
+  left: 230px;
+}
+
+.row{
+  width: 500px;
+  height: 156px;
+  position: relative;
+}
+
+.player{
+  width: 190px;
+  height: 220px;
+  border: 2px solid #000;
+  border-radius: 10px;
+  text-align: center;
+  position: relative;
+  font: 20px sans-serif;
+  top: 10px;
+}
+
+.square{
+  width: 150px;
+  height: 150px;
+  border: 3px solid #000;
+  background-color: orange;
+  border-style: solid;
+  pointer-events: auto;
+  position: relative;
+  float: left;
+}
+
+.mv-sq-x{
+  width: 150px;
+  height: 150px;
+  background-image: url(../images/x2.png);
+  background-size: contain;
+  background-repeat: no-repeat;
+  cursor: pointer;
+  border: 3px solid #000;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+
+.mv-sq-o{
+  width: 150px;
+  height: 150px;
+  background-image: url(../images/o2.png);
+  background-size: contain;
+  background-repeat: no-repeat;
+  cursor: pointer;
+  border: 3px solid #000;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}

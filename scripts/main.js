@@ -18,7 +18,8 @@ let arr = [
 
 const game_log = {
 	pre: "To start game, Drag & Drop player squares",
-	start: "Game started",
+	start_x: "Game started, player-O is next",
+    start_o: "Game started, player-X is next",
 	x_won: "Player-X WON!!! press Reset to play again",
 	o_won: "Player-O WON!!! press Reset to play again"
 };
@@ -34,7 +35,7 @@ let mySound = new Audio('./sounds/e_chime.mp3');
 const drag_sq = document.querySelectorAll('.mv-sq-x, .mv-sq-o');
 
 // add EventListeners to all elements in object drag_sq
-drag_sq.forEach(function(item){
+drag_sq.forEach(function(){
     addEventListener('dragstart', dragStart);
     addEventListener('dragend', dragEnd);
 });
@@ -44,14 +45,14 @@ function dragStart(ev) {
     dragged = ev.target;
 }
 
-function dragEnd(ev) {
+function dragEnd() {
     info_log();
 }
 
 // assign to object drag_sq all div element named square
 const board_sqs = document.querySelectorAll('.square');
 
-board_sqs.forEach(function(sq){
+board_sqs.forEach(function(){
     addEventListener('dragover', dragOver);
     addEventListener('dragenter', dragEnter);
     addEventListener('dragleave', dragLeave);
@@ -80,16 +81,17 @@ function dragDrop(ev) {
     ev.preventDefault();
 
     if (ev.target.className === 'square' && game_win === 0){
-        let temp_node = dragged.cloneNode();
         ev.target.style.border = '3px solid black';
 
-        // check temp/dragged element id to see if its the original X or O square.
+        // check dragged element id to see if its the original X or O square.
         // if its not one of the originals do not complete the append clone operation.
-        if (temp_node.id === 'first-x' || temp_node.id === 'first-o'){
-
+        if (dragged.id === 'first-x' || dragged.id === 'first-o'){
+            let temp_node = dragged.cloneNode();
             const drag_elmt_id = temp_node.id; // store dragged element id before its modified
 
             temp_node.id += unq_id; // if its an original make a unique id for the clone
+            temp_node.draggable = false;
+
             ev.target.appendChild(temp_node); // append unique id clone to square
             unq_id++; // increment unique clone counter
 
@@ -99,6 +101,16 @@ function dragDrop(ev) {
             // check if theres any winning combinations
             check_win();
 
+            // disable the draggable attribute of the first dropped player square.
+            // then interchange the draggable attribute of both squares in following turns.
+            if (unq_id === 1){
+                dragged.draggable = !dragged.draggable;
+            }
+            else if (unq_id > 1){
+                drag_sq.forEach(function(sq){
+                    sq.draggable = !sq.draggable;
+                });
+            }
         }
     }
 }
@@ -108,7 +120,12 @@ function info_log() {
         document.getElementById("results").innerHTML = game_log.pre;
     }
     else if (unq_id > 0 && game_win === 0){
-        document.getElementById("results").innerHTML = game_log.start;
+        if (dragged.id === 'first-x'){
+            document.getElementById("results").innerHTML = game_log.start_x;
+        }
+        else if (dragged.id === 'first-o'){
+            document.getElementById("results").innerHTML = game_log.start_o;
+        }
     }
 }
 
@@ -173,9 +190,10 @@ function check_win(){
         mySound.play();
     }
 
-    let win_canvas = document.querySelector('.canvas-outer');
-    win_canvas.style.backgroundColor = win_color;
-
+    if (game_win !== 0){
+        let win_canvas = document.querySelector('.canvas-outer');
+        win_canvas.style.backgroundColor = win_color;
+    }
 }
 
 function win_comb(num){

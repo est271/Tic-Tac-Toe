@@ -1,5 +1,11 @@
 body{
   background:#999;
+  -webkit-touch-callout: none;
+  -webkit-user-select: none;
+  -khtml-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
 }
 
 .canvas-outer{
@@ -55,6 +61,9 @@ body{
   width: 100px;
   margin: 0px 0px 0px 30px;
   font-size: 20px;
+  border-radius: 10px;
+  border: 3px solid blue;
+  cursor: pointer;
 }
 .board{
   height: auto;

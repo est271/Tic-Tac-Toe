@@ -4,7 +4,7 @@
 
 "use strict";
 
-// global variables
+// global variables 
 let dragged;
 let unq_id = 0;
 let game_win = 0;
@@ -17,11 +17,11 @@ let arr = [
 ];
 
 const game_log = {
-	pre: "To start game, Drag & Drop player squares",
-	start_x: "Game started, player-O is next",
+    pre: "To start game, Drag & Drop player squares",
+    start_x: "Game started, player-O is next",
     start_o: "Game started, player-X is next",
-	x_won: "Player-X WON!!! press Reset to play again",
-	o_won: "Player-O WON!!! press Reset to play again"
+    x_won: "Player-X WON!!! press Reset to play again",
+    o_won: "Player-O WON!!! press Reset to play again"
 };
 
 info_log();

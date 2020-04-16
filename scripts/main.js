@@ -46,7 +46,6 @@ function dragStart(ev) {
 }
 
 function dragEnd() {
-    info_log();
 }
 
 // assign to object drag_sq all div element named square
@@ -111,6 +110,7 @@ function dragDrop(ev) {
                     sq.draggable = !sq.draggable;
                 });
             }
+            info_log();
         }
     }
 }

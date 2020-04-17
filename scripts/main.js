@@ -88,7 +88,7 @@ function dragDrop(ev) {
             let temp_node = dragged.cloneNode();
             const drag_elmt_id = temp_node.id; // store dragged element id before its modified
 
-            temp_node.id += unq_id; // if its an original make a unique id for the clone
+            temp_node.id += unq_id; // make a unique id for the clone
             temp_node.draggable = false;
 
             ev.target.appendChild(temp_node); // append unique id clone to square

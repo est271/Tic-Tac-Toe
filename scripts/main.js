@@ -21,7 +21,8 @@ const game_log = {
     start_x: "Game started, player-O is next",
     start_o: "Game started, player-X is next",
     x_won: "Player-X WON!!! press Reset to play again",
-    o_won: "Player-O WON!!! press Reset to play again"
+    o_won: "Player-O WON!!! press Reset to play again",
+    no_win: "NO winner!!! press Reset to play again"
 };
 
 info_log();
@@ -35,46 +36,38 @@ let mySound = new Audio('./sounds/e_chime.mp3');
 const drag_sq = document.querySelectorAll('.mv-sq-x, .mv-sq-o');
 
 // add EventListeners to all elements in object drag_sq
-drag_sq.forEach(function(){
-    addEventListener('dragstart', dragStart);
-    addEventListener('dragend', dragEnd);
+drag_sq.forEach(() => {
+    addEventListener('dragstart', (ev) => {
+        dragged = ev.target;
+    });
+    addEventListener('dragend', (ev) => {
+        // TODO: The game will work without anything inside this EventListener
+        // console.log(ev);
+    });
 });
 
-// drag_sq Functions
-function dragStart(ev) {
-    dragged = ev.target;
-}
-
-function dragEnd() {
-}
-
-// assign to object drag_sq all div element named square
-const board_sqs = document.querySelectorAll('.square');
-
-board_sqs.forEach(function(){
-    addEventListener('dragover', dragOver);
-    addEventListener('dragenter', dragEnter);
-    addEventListener('dragleave', dragLeave);
+// add EventListeners to all div elements of class 'square'
+document.querySelectorAll('.square').forEach(() => {
+    addEventListener('dragover', (ev) => {
+        ev.preventDefault();
+    });
+    addEventListener('dragenter', (ev) => {
+        ev.preventDefault();
+        if (ev.target.className === 'square' && game_win === 0){
+            ev.target.style.border = '3px dashed red';
+        }
+        return;
+    });
+    addEventListener('dragleave', (ev) => {
+        ev.preventDefault();
+        if (ev.target.className === 'square'){
+            ev.target.style.border = '3px solid black';
+        }
+        return;
+    });
+    // dragDrop() is long so im going to leave it as a function declaration
     addEventListener('drop', dragDrop);
 });
-
-function dragOver(ev) {
-    ev.preventDefault();
-}
-
-function dragEnter(ev) {
-    ev.preventDefault();
-    if (ev.target.className === 'square' && game_win === 0){
-        ev.target.style.border = '3px dashed red';
-    }
-}
-
-function dragLeave(ev) {
-    ev.preventDefault();
-    if (ev.target.className === 'square'){
-        ev.target.style.border = '3px solid black';
-    }
-}
 
 function dragDrop(ev) {
     ev.preventDefault();
@@ -106,7 +99,7 @@ function dragDrop(ev) {
                 dragged.draggable = !dragged.draggable;
             }
             else if (unq_id > 1){
-                drag_sq.forEach(function(sq){
+                drag_sq.forEach(sq => {
                     sq.draggable = !sq.draggable;
                 });
             }
@@ -118,6 +111,9 @@ function dragDrop(ev) {
 function info_log() {
     if (unq_id === 0){
         document.getElementById("results").innerHTML = game_log.pre;
+    }
+    else if (unq_id === 9 && game_win === 0){
+        document.getElementById("results").innerHTML = game_log.no_win;
     }
     else if (unq_id > 0 && game_win === 0){
         if (dragged.id === 'first-x'){

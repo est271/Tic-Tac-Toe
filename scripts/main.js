@@ -46,6 +46,16 @@ drag_sq.forEach(() => {
     });
 });
 
+
+// document.querySelector('.mv-sq-x').addEventListener('touchstart', (ev) => {
+    // console.log( ev.touches );
+    // let touchlocation = ev.targetTouches[0];
+    // dragged = ev.target;
+
+    // aa.style.left = touchlocation.pageX + 'px';
+    // aa.style.top = touchlocation.pageY + 'px';
+// });
+
 // add EventListeners to all div elements of class 'square'
 document.querySelectorAll('.square').forEach(() => {
     addEventListener('dragover', (ev) => {

@@ -15,7 +15,6 @@ body{
   border-radius: 10px;
 }
 
-/*      MAKE A MEDIA QUERY FOR .canvas-inner  @ 630px  */
 .canvas-inner{
   width: 86%;
   margin: 0px auto 0px auto;
@@ -140,5 +139,12 @@ body{
     .square {
         width: 12vh;
         height: 12vh;
+    }
+}
+
+/*   when the screen-W is greater than 1040px  */
+@media (min-width: 65em) {
+    .canvas-inner {
+        width: 50vh;
     }
 }

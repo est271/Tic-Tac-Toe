@@ -85,9 +85,11 @@ function dragDrop(ev) {
     if (ev.target.className === 'square' && game_win === 0){
         ev.target.style.border = '3px solid black';
 
-        // check dragged element id to see if its the original X or O square.
+        // if the square does not have a child continue with the operations.
+        // also check dragged element id to see if its the original X or O square.
         // if its not one of the originals do not complete the append clone operation.
-        if (dragged.id === 'first-x' || dragged.id === 'first-o'){
+        if (ev.target.children[0] === undefined
+            && (dragged.id === 'first-x' || dragged.id === 'first-o') ){
             let temp_node = dragged.cloneNode();
             const drag_elmt_id = temp_node.id; // store dragged element id before its modified
 

@@ -76,7 +76,7 @@ body{
 .mv-sq-x{
   width: 14vh;
   height: 14vh;
-  background-image: url(../images/x2.png);
+  background-image: url(../images/x.svg);
   background-size: contain;
   background-repeat: no-repeat;
   cursor: pointer;

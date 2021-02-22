@@ -17,7 +17,7 @@ let arr = [
 ];
 
 const game_log = {
-    pre: "To start game, Drag & Drop player squares",
+    pre: "To start game, Drag & Drop squares",
     start_x: "Game started, player-O is next",
     start_o: "Game started, player-X is next",
     x_won: "Player-X WON!!! press Reset to play again",
@@ -35,28 +35,54 @@ let mySound = new Audio('./sounds/e_chime.mp3');
 // assign to object drag_sq div elements mv-sq-x and mv-sq-o
 const drag_sq = document.querySelectorAll('.mv-sq-x, .mv-sq-o');
 
-// add EventListeners to all elements in object drag_sq
+// add EventListeners to all elements in object drag_sq (NON-mobile EventListeners)
 drag_sq.forEach(() => {
     addEventListener('dragstart', (ev) => {
         dragged = ev.target;
     });
     addEventListener('dragend', (ev) => {
         // TODO: The game will work without anything inside this EventListener
-        // console.log(ev);
     });
 });
 
+// ................................TOUCH EVENTS START....................................
 
-// document.querySelector('.mv-sq-x').addEventListener('touchstart', (ev) => {
-    // console.log( ev.touches );
-    // let touchlocation = ev.targetTouches[0];
-    // dragged = ev.target;
+drag_sq.forEach(() => {
+    addEventListener('touchstart', (ev) => {
+        dragged = ev.target;
+    });
 
-    // aa.style.left = touchlocation.pageX + 'px';
-    // aa.style.top = touchlocation.pageY + 'px';
-// });
+    addEventListener('touchmove', (ev) => {
+        let dragOverTarget = document.elementFromPoint(
+            ev.changedTouches[0].pageX,
+            ev.changedTouches[0].pageY,
+        )
 
-// add EventListeners to all div elements of class 'square'
+        if (ev.target.draggable && dragOverTarget.className === 'square'){
+            document.querySelectorAll('.square').forEach((sq) => {
+                sq.style.border = '3px solid black';
+            });
+            dragOverTarget.style.border = '3px dashed red';
+        }
+    });
+
+    addEventListener('touchend', (ev) => {
+        let endTarget = document.elementFromPoint(
+            ev.changedTouches[0].pageX,
+            ev.changedTouches[0].pageY,
+        )
+
+        if (ev.target.draggable){
+            dragDropMobile(endTarget);
+        }
+    });
+
+});
+
+// ................................TOUCH EVENTS END....................................
+
+
+// add EventListeners to all div elements of class 'square' (NON-mobile EventListeners)
 document.querySelectorAll('.square').forEach(() => {
     addEventListener('dragover', (ev) => {
         ev.preventDefault();
@@ -107,6 +133,39 @@ function dragDrop(ev) {
 
             // disable the draggable attribute of the first dropped player square.
             // then interchange the draggable attribute of both squares in following turns.
+            if (unq_id === 1){
+                dragged.draggable = !dragged.draggable;
+            }
+            else if (unq_id > 1){
+                drag_sq.forEach(sq => {
+                    sq.draggable = !sq.draggable;
+                });
+            }
+            info_log();
+        }
+    }
+}
+
+// dragDropMobile() is similar to dragDrop() but modified to handle mobile functionality
+function dragDropMobile(ev) {
+    if (ev.className === 'square' && game_win === 0){
+        ev.style.border = '3px solid black';
+
+        if (ev.children[0] === undefined
+            && (dragged.id === 'first-x' || dragged.id === 'first-o') ){
+            let temp_node = dragged.cloneNode();
+            const drag_elmt_id = temp_node.id;
+
+            temp_node.id += unq_id;
+            temp_node.draggable = false;
+
+            ev.appendChild(temp_node);
+            unq_id++;
+
+            arr_update(ev.id, drag_elmt_id);
+
+            check_win();
+
             if (unq_id === 1){
                 dragged.draggable = !dragged.draggable;
             }

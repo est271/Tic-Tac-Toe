@@ -45,11 +45,31 @@ drag_sq.forEach(() => {
     });
 });
 
+//......CODE BELOW COURTESY OF STACKOVERFLOW QUESTION:4770025 ANSWER by USER:gblazex......
+
+function preventScroll(e) {
+    e.preventDefault();
+}
+let supportsPassive = false;
+try {
+  window.addEventListener("test", null, Object.defineProperty({}, 'passive', {
+    get: function () { supportsPassive = true; }
+  }));
+} catch(e) {}
+let wheelOpt = supportsPassive ? { passive: false } : false;
+function disableScroll() {
+    window.addEventListener('touchmove', preventScroll, wheelOpt);
+}
+function enableScroll() {
+    window.removeEventListener('touchmove', preventScroll, wheelOpt);
+}
+
 // ................................TOUCH EVENTS START....................................
 
 drag_sq.forEach(() => {
     addEventListener('touchstart', (ev) => {
         dragged = ev.target;
+        disableScroll();
     });
 
     addEventListener('touchmove', (ev) => {
@@ -75,6 +95,7 @@ drag_sq.forEach(() => {
         if (ev.target.draggable){
             dragDropMobile(endTarget);
         }
+        enableScroll();
     });
 
 });

@@ -25,12 +25,13 @@ const game_log = {
     no_win: "NO winner!!! press Reset to play again"
 };
 
+// functions to run when the game first starts
 info_log();
+window.scrollTo(0, document.body.scrollHeight);
 
-let mySound = new Audio('./sounds/e_chime.mp3');
 // Electronic_Chime_sound.mp3 (shortened by me for ease of use)
 // See Electronic_Chime_sound.txt for license info
-
+let mySound = new Audio('./sounds/e_chime.mp3');
 
 // assign to object drag_sq div elements mv-sq-x and mv-sq-o
 const drag_sq = document.querySelectorAll('.mv-sq-x, .mv-sq-o');
@@ -162,6 +163,7 @@ function dragDrop(ev) {
                     sq.draggable = !sq.draggable;
                 });
             }
+            
             info_log();
         }
     }
@@ -195,6 +197,7 @@ function dragDropMobile(ev) {
                     sq.draggable = !sq.draggable;
                 });
             }
+
             info_log();
         }
     }

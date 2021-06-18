@@ -10,7 +10,7 @@ body{
 
 .canvas-outer{
   height: 98vh;
-  width: auto;
+  width: 95vw;
   background-color: #669999;
   border-radius: 10px;
 }
@@ -132,6 +132,17 @@ body{
     #reset{
         font: 12px sans-serif;
     }
+
+    /* Prevent Address-Bar hiding in mobile Browsers */
+    html{
+        overflow: hidden;
+    }
+    body{
+        height:100%;
+        position:fixed;
+        overflow-y:scroll;
+        -webkit-overflow-scrolling: touch;
+    }
 }
 
 /*   when the screen-W is less than 700px & screen-H is greater than 750px  */
@@ -139,6 +150,17 @@ body{
     .square {
         width: 12vh;
         height: 12vh;
+    }
+
+    /* Prevent Address-Bar hiding in mobile Browsers */
+    html{
+        overflow: hidden;
+    }
+    body{
+        height:100%;
+        position:fixed;
+        overflow-y:scroll;
+        -webkit-overflow-scrolling: touch;
     }
 }
 

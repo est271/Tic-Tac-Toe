@@ -27,7 +27,6 @@ const game_log = {
 
 // functions to run when the game first starts
 info_log();
-window.scrollTo(0, document.body.scrollHeight);
 
 // Electronic_Chime_sound.mp3 (shortened by me for ease of use)
 // See Electronic_Chime_sound.txt for license info

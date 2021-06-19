@@ -9,10 +9,11 @@ body{
 }
 
 .canvas-outer{
-  height: 98vh;
+  height: auto;
   width: 95vw;
   background-color: #669999;
   border-radius: 10px;
+  padding-bottom: 10px;
 }
 
 .canvas-inner{
@@ -60,9 +61,9 @@ body{
 }
 
 .drag-container{
-    display: flex;
-    justify-content: center;
-    margin-bottom: 0.2em;
+  display: flex;
+  justify-content: center;
+  margin-bottom: 0.2em;
 }
 .player{
   /*flex-basis: 47%;*/
@@ -94,7 +95,7 @@ body{
   margin: 10px auto 0 auto;
 }
 .mv-sq-x:hover:active, .mv-sq-o:hover:active{
-    opacity: 0;
+  opacity: 0;
 }
 
 .board{
@@ -118,55 +119,48 @@ body{
 }
 
 .square .mv-sq-x, .square .mv-sq-o{
-    height: 100%;
-    width: 100%;
-    border: 0;
-    margin: 0;
+  height: 100%;
+  width: 100%;
+  border: 0;
+  margin: 0;
 }
 
 /*   when the screen-W is less than 700px & screen-H is less than 650px   */
 @media (max-width: 43.75em) and (max-height: 40.62em) {
-    #results{
-        font: 15px sans-serif;
-    }
-    #reset{
-        font: 12px sans-serif;
-    }
-
-    /* Prevent Address-Bar hiding in mobile Browsers */
-    html{
-        overflow: hidden;
-    }
-    body{
-        height:100%;
-        position:fixed;
-        overflow-y:scroll;
-        -webkit-overflow-scrolling: touch;
-    }
+  #results{
+    font: 15px sans-serif;
+  }
+  #reset{
+    font: 12px sans-serif;
+  }
 }
 
 /*   when the screen-W is less than 700px & screen-H is greater than 750px  */
 @media (max-width: 43.75em) and (min-height: 46.67em) {
-    .square {
-        width: 12vh;
-        height: 12vh;
-    }
-
-    /* Prevent Address-Bar hiding in mobile Browsers */
-    html{
-        overflow: hidden;
-    }
-    body{
-        height:100%;
-        position:fixed;
-        overflow-y:scroll;
-        -webkit-overflow-scrolling: touch;
-    }
+  .square {
+    width: 12vh;
+    height: 12vh;
+  }
 }
 
 /*   when the screen-W is greater than 1040px  */
 @media (min-width: 65em) {
-    .canvas-inner {
-        width: 50vh;
-    }
+  .canvas-inner {
+    width: 50vh;
+  }
+}
+
+/*   when the screen-W is less than 1040px  */
+@media (max-width: 65em) {
+
+  /* Prevent Address-Bar hiding in mobile Browsers */
+  html{
+    overflow: hidden;
+  }
+  body{
+    height:100%;
+    position:fixed;
+    overflow-y:scroll;
+    -webkit-overflow-scrolling: touch;
+  }
 }

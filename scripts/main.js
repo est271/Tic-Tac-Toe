@@ -135,6 +135,11 @@ function dragDrop(ev) {
             // then interchange the draggable attribute of both squares in following turns.
             if (unq_id === 1){
                 dragged.draggable = !dragged.draggable;
+                if (dragged.id === 'first-x'){
+                    document.querySelector('.drag-container :nth-child(2)').style.opacity = '0.3';
+                } else {
+                    document.querySelector('.drag-container :nth-child(1)').style.opacity = '0.3';
+                }
             }
             else if (unq_id > 1){
                 drag_sq.forEach(sq => {

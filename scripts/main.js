@@ -131,20 +131,16 @@ function dragDrop(ev) {
             // check if theres any winning combinations
             check_win();
 
-            // disable the draggable attribute of the first dropped player square.
-            // then interchange the draggable attribute of both squares in following turns.
+            // disable the draggable attribute of the drag square opposite of what the player
+            // initially dropped. so the player doesn't accidentally drop the computer square.
             if (unq_id === 1){
-                dragged.draggable = !dragged.draggable;
                 if (dragged.id === 'first-x'){
                     document.querySelector('.drag-container :nth-child(2)').style.opacity = '0.3';
+                    document.querySelector('.drag-container :nth-child(2)').draggable = false;
                 } else {
                     document.querySelector('.drag-container :nth-child(1)').style.opacity = '0.3';
+                    document.querySelector('.drag-container :nth-child(1)').draggable = false;
                 }
-            }
-            else if (unq_id > 1){
-                drag_sq.forEach(sq => {
-                    sq.draggable = !sq.draggable;
-                });
             }
             
             info_log();
@@ -175,12 +171,13 @@ function dragDropMobile(ev) {
             check_win();
 
             if (unq_id === 1){
-                dragged.draggable = !dragged.draggable;
-            }
-            else if (unq_id > 1){
-                drag_sq.forEach(sq => {
-                    sq.draggable = !sq.draggable;
-                });
+                if (dragged.id === 'first-x'){
+                    document.querySelector('.drag-container :nth-child(2)').style.opacity = '0.3';
+                    document.querySelector('.drag-container :nth-child(2)').draggable = false;
+                } else {
+                    document.querySelector('.drag-container :nth-child(1)').style.opacity = '0.3';
+                    document.querySelector('.drag-container :nth-child(1)').draggable = false;
+                }
             }
 
             info_log();
@@ -385,10 +382,6 @@ function dropComputer(target, dragSquare) {
             arr_update(target.id, drag_elmt_id);
 
             check_win();
-
-            drag_sq.forEach(sq => {
-                sq.draggable = !sq.draggable;
-            });
 
             info_log();
         }

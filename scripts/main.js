@@ -143,6 +143,8 @@ function dragDrop(ev) {
             }
             
             info_log();
+
+            computerTurn();
         }
     }
 }
@@ -177,6 +179,8 @@ function dragDropMobile(ev) {
             }
 
             info_log();
+
+            computerTurn();
         }
     }
 }
@@ -288,4 +292,100 @@ function win_comb(num){
 // function to sum elements in an array
 function arr_sum(ar){
     return ar.reduce((a,b) => a + b, 0);
+}
+
+// player vs Computer functions.................................................
+
+function computerTurn() {
+
+    if (dragged.id === 'first-x') {
+        dragged = document.querySelector('#first-o');
+    } else {
+        dragged = document.querySelector('#first-x');
+    }
+
+    const cpu_move = generateRandomMove(arr);
+
+    if (cpu_move){
+        initiateMove(cpu_move);
+    } else return
+}
+
+function generateRandomMove(board) {
+    let availableMoves = [];
+    for (let x = 0; x < 3; x++) {
+        for (let y = 0; y < 3; y++){
+            if (board[x][y] === 0) {
+                availableMoves.push([x,y]);
+            }
+        }
+    }
+
+    //returns an array [row,column] with coordinates of random available square
+    return availableMoves[Math.floor(Math.random() * availableMoves.length)];
+}
+
+function initiateMove(choice) {
+    let cpu_square = null;
+
+    if (choice[0] === 0 ) {
+        // first row choices
+        if (choice[1] === 0 ) {
+            cpu_square = document.querySelector('#top-l');
+        } else if (choice[1] === 1) {
+            cpu_square = document.querySelector('#top-c');
+        } else if (choice[1] === 2) {
+            cpu_square = document.querySelector('#top-r');
+        }
+    } else if (choice[0] === 1) {
+        // second row choices
+        if (choice[1] === 0 ) {
+            cpu_square = document.querySelector('#mid-l');
+        } else if (choice[1] === 1) {
+            cpu_square = document.querySelector('#mid-c');
+        } else if (choice[1] === 2) {
+            cpu_square = document.querySelector('#mid-r');
+        }
+    } else if (choice[0] === 2) {
+        // third row choices
+        if (choice[1] === 0 ) {
+            cpu_square = document.querySelector('#bot-l');
+        } else if (choice[1] === 1) {
+            cpu_square = document.querySelector('#bot-c');
+        } else if (choice[1] === 2) {
+            cpu_square = document.querySelector('#bot-r');
+        }
+    }
+
+    dropComputer(cpu_square, dragged);
+    return
+}
+
+// this is similar to dragDrop() but for the computers turn
+function dropComputer(target, dragSquare) {
+    if (target.className === 'square' && game_win === 0){
+        // target.style.border = '3px solid black';
+
+        if (target.children[0] === undefined
+            && (dragSquare.id === 'first-x' || dragSquare.id === 'first-o') ){
+            let temp_node = dragSquare.cloneNode();
+            const drag_elmt_id = temp_node.id;
+
+            temp_node.id += unq_id;
+            temp_node.draggable = false;
+
+            target.appendChild(temp_node);
+            unq_id++;
+
+            arr_update(target.id, drag_elmt_id);
+
+            check_win();
+
+            drag_sq.forEach(sq => {
+                sq.draggable = !sq.draggable;
+            });
+
+            info_log();
+        }
+    }
 }

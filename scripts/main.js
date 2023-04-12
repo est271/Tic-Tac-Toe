@@ -251,14 +251,14 @@ function arr_update(e_target, e_drag) {
 function check_win(){
     let win_color;
 
-    if (win_comb(3)) {
+    if (win_comb(3, arr)) {
         game_win = 1;
         document.getElementById("results").innerHTML = game_log.x_won;
         win_color = 'yellow';
         mySound.play();
     }
 
-    if (win_comb(30)) {
+    if (win_comb(30, arr)) {
         game_win = 1;
         document.getElementById("results").innerHTML = game_log.o_won;
         win_color = 'green';
@@ -271,22 +271,22 @@ function check_win(){
     }
 }
 
-function win_comb(num){
+function win_comb(num, tempArray){
     let comb_set = new Set();
 
     // Horizontal checks
     for (let x = 0; x < 3 ; x++){
-        comb_set.add(arr_sum(arr[x]));
+        comb_set.add(arr_sum(tempArray[x]));
     }
 
     // Vertical checks
     for (let y = 0; y < 3 ; y++){
-        comb_set.add(arr[0][y] + arr[1][y] + arr[2][y]);
+        comb_set.add(tempArray[0][y] + tempArray[1][y] + tempArray[2][y]);
     }
 
     // Diagonal checks
-    comb_set.add(arr[0][0] + arr[1][1] + arr[2][2]);
-    comb_set.add(arr[0][2] + arr[1][1] + arr[2][0]);
+    comb_set.add(tempArray[0][0] + tempArray[1][1] + tempArray[2][2]);
+    comb_set.add(tempArray[0][2] + tempArray[1][1] + tempArray[2][0]);
 
     return comb_set.has(num);
 }
@@ -306,25 +306,32 @@ function computerTurn() {
         dragged = document.querySelector('#first-x');
     }
 
-    const cpu_move = generateRandomMove(arr);
+    let availableMoves = getAvailableMoves(arr);
+
+    // later I will give the option of playing 'easy' or 'hard' mode and run either one of the 2 lines below
+    // const cpu_move = generateRandomMove(availableMoves);
+    const cpu_move = generateMove(availableMoves);
 
     if (cpu_move){
         initiateMove(cpu_move);
     } else return
 }
 
-function generateRandomMove(board) {
-    let availableMoves = [];
+function getAvailableMoves(board) {
+    let avMoves = [];
     for (let x = 0; x < 3; x++) {
         for (let y = 0; y < 3; y++){
             if (board[x][y] === 0) {
-                availableMoves.push([x,y]);
+                avMoves.push([x,y]);
             }
         }
     }
+    return avMoves;
+}
 
+function generateRandomMove(avMovesArray) {
     //returns an array [row,column] with coordinates of random available square
-    return availableMoves[Math.floor(Math.random() * availableMoves.length)];
+    return avMovesArray[Math.floor(Math.random() * avMovesArray.length)];
 }
 
 function initiateMove(choice) {
@@ -386,4 +393,46 @@ function dropComputer(target, dragSquare) {
             info_log();
         }
     }
+}
+
+function generateMove(avMovesArray){
+
+    let cpuNumber;
+    let playerNumber;
+
+    if (dragged.id === 'first-x'){
+        cpuNumber = 1;
+        playerNumber = 10;
+    } else {
+        cpuNumber = 10;
+        playerNumber = 1;
+    }
+
+    // analyze every availabe square to see if there is a winning move for the computer
+    let compWin = false;
+    for (let x = 0; x < avMovesArray.length; x++){
+        compWin = checkForWin(avMovesArray[x], cpuNumber);
+        if (compWin) {
+            return avMovesArray[x];
+        }
+    }
+
+    // if no winning moves, analyze every availabe square to see if the computer can block a player win
+    let compBlock = false;
+    for (let y = 0; y < avMovesArray.length; y++){
+        compBlock = checkForWin(avMovesArray[y], playerNumber);
+        if (compBlock) {
+            return avMovesArray[y];
+        }
+    }
+
+    // if no winning moves or block moves available, pick a random square
+    return generateRandomMove(avMovesArray);
+}
+
+function checkForWin (move, playerNumber) {
+    // created checkArray this way to make a true non reference copy
+    let checkArray = JSON.parse(JSON.stringify(arr));
+    checkArray[move[0]][move[1]] = playerNumber;
+    return win_comb(playerNumber * 3, checkArray);
 }

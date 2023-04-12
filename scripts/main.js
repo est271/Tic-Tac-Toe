@@ -55,8 +55,8 @@ drag_sq.forEach(() => {
     addEventListener('touchmove', (ev) => {
         let dragOverTarget = document.elementFromPoint(
             ev.changedTouches[0].pageX,
-            ev.changedTouches[0].pageY,
-        )
+            ev.changedTouches[0].pageY
+        );
 
         if (ev.target.draggable && dragOverTarget.className === 'square'){
             document.querySelectorAll('.square').forEach((sq) => {
@@ -69,8 +69,8 @@ drag_sq.forEach(() => {
     addEventListener('touchend', (ev) => {
         let endTarget = document.elementFromPoint(
             ev.changedTouches[0].pageX,
-            ev.changedTouches[0].pageY,
-        )
+            ev.changedTouches[0].pageY
+        );
 
         if (ev.target.draggable){
             dragDropMobile(endTarget);
@@ -314,7 +314,7 @@ function computerTurn() {
 
     if (cpu_move){
         initiateMove(cpu_move);
-    } else return
+    } else return;
 }
 
 function getAvailableMoves(board) {
@@ -367,7 +367,7 @@ function initiateMove(choice) {
     }
 
     dropComputer(cpu_square, dragged);
-    return
+    return;
 }
 
 // this is similar to dragDrop() but for the computers turn

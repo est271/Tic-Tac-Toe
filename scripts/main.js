@@ -73,7 +73,7 @@ let GAME = (function() {
             );
 
             if (ev.target.draggable){
-                dragDropMobile(endTarget);
+                dragDrop(endTarget);
             }
         });
 
@@ -106,15 +106,22 @@ let GAME = (function() {
     });
 
     function dragDrop(ev) {
-        ev.preventDefault();
 
-        if (ev.target.className === 'square' && game_win === 0){
-            ev.target.style.border = '3px solid black';
+        let squareChoice = null;
+        if (ev.target) {
+            ev.preventDefault();
+            squareChoice = ev.target // for desktop users
+        } else {
+            squareChoice = ev // for mobile device users
+        };
+
+        if (squareChoice.className === 'square' && game_win === 0){
+            squareChoice.style.border = '3px solid black';
 
             // if the square does not have a child continue with the operations.
             // also check dragged element id to see if its the original X or O square.
             // if its not one of the originals do not complete the append clone operation.
-            if (ev.target.children[0] === undefined
+            if (squareChoice.children[0] === undefined
                 && (dragged.id === 'first-x' || dragged.id === 'first-o') ){
                 let temp_node = dragged.cloneNode();
                 const drag_elmt_id = temp_node.id; // store dragged element id before its modified
@@ -122,11 +129,11 @@ let GAME = (function() {
                 temp_node.id += unq_id; // make a unique id for the clone
                 temp_node.draggable = false;
 
-                ev.target.appendChild(temp_node); // append unique id clone to square
+                squareChoice.appendChild(temp_node); // append unique id clone to square
                 unq_id++; // increment unique clone counter
 
                 // update logic array
-                arr_update(ev.target.id, drag_elmt_id);
+                arr_update(squareChoice.id, drag_elmt_id);
 
                 // check if theres any winning combinations
                 check_win();
@@ -143,43 +150,6 @@ let GAME = (function() {
                     }
                 }
                 
-                info_log();
-
-                computerTurn();
-            }
-        }
-    }
-
-    // dragDropMobile() is similar to dragDrop() but modified to handle mobile functionality
-    function dragDropMobile(ev) {
-        if (ev.className === 'square' && game_win === 0){
-            ev.style.border = '3px solid black';
-
-            if (ev.children[0] === undefined
-                && (dragged.id === 'first-x' || dragged.id === 'first-o') ){
-                let temp_node = dragged.cloneNode();
-                const drag_elmt_id = temp_node.id;
-
-                temp_node.id += unq_id;
-                temp_node.draggable = false;
-
-                ev.appendChild(temp_node);
-                unq_id++;
-
-                arr_update(ev.id, drag_elmt_id);
-
-                check_win();
-
-                if (unq_id === 1){
-                    if (dragged.id === 'first-x'){
-                        document.querySelector('.drag-container :nth-child(2)').style.opacity = '0.3';
-                        document.querySelector('.drag-container :nth-child(2)').draggable = false;
-                    } else {
-                        document.querySelector('.drag-container :nth-child(1)').style.opacity = '0.3';
-                        document.querySelector('.drag-container :nth-child(1)').draggable = false;
-                    }
-                }
-
                 info_log();
 
                 computerTurn();

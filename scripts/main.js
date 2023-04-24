@@ -32,10 +32,9 @@ let GAME = (function() {
     let mySound = new Audio('./sounds/e_chime.mp3');
 
 
-    // assign to object drag_sq div elements mv-sq-x and mv-sq-o
     const drag_sq = document.querySelectorAll('.mv-sq-x, .mv-sq-o');
 
-    // add EventListeners to all elements in object drag_sq (NON-mobile EventListeners)
+    // add NON-mobile EventListeners to both player Squares
     drag_sq.forEach(() => {
         addEventListener('dragstart', (ev) => {
             dragged = ev.target;
@@ -45,8 +44,7 @@ let GAME = (function() {
         });
     });
 
-    // ................................TOUCH EVENTS START....................................
-
+    // add mobile EventListeners to both player Squares
     drag_sq.forEach(() => {
         addEventListener('touchstart', (ev) => {
             dragged = ev.target;
@@ -79,10 +77,7 @@ let GAME = (function() {
 
     });
 
-    // ................................TOUCH EVENTS END....................................
-
-
-    // add EventListeners to all div elements of class 'square' (NON-mobile EventListeners)
+    // add EventListeners to all game squares(orange squares) on the board.
     document.querySelectorAll('.square').forEach(() => {
         addEventListener('dragover', (ev) => {
             ev.preventDefault();
@@ -119,7 +114,7 @@ let GAME = (function() {
             squareChoice.style.border = '3px solid black';
 
             // if the square does not have a child continue with the operations.
-            // also check dragged element id to see if its the original X or O square.
+            // also check dragged element id to see if its the original X or O player square.
             // if its not one of the originals do not complete the append clone operation.
             if (squareChoice.children[0] === undefined
                 && (dragged.id === 'first-x' || dragged.id === 'first-o') ){
@@ -205,7 +200,7 @@ let GAME = (function() {
             c_index = 2;
         }
 
-        // update logic array depending on what x or o was dropped
+        // update logic array depending on what player square was dropped
         if (e_drag === 'first-x'){
             arr[r_index][c_index] = 1;
         }
@@ -257,7 +252,6 @@ let GAME = (function() {
         return comb_set.has(num);
     }
 
-    // function to sum elements in an array
     function arr_sum(ar){
         return ar.reduce((a,b) => a + b, 0);
     }
@@ -339,7 +333,6 @@ let GAME = (function() {
     // this is similar to dragDrop() but for the computers turn
     function dropComputer(target, dragSquare) {
         if (target.className === 'square' && game_win === 0){
-            // target.style.border = '3px solid black';
 
             if (target.children[0] === undefined
                 && (dragSquare.id === 'first-x' || dragSquare.id === 'first-o') ){
@@ -397,7 +390,7 @@ let GAME = (function() {
     }
 
     function checkForWin (move, playerNumber) {
-        // created checkArray this way to make a true non reference copy
+        // created checkArray this way to make a true non reference copy. otherwise arr will be modified
         let checkArray = JSON.parse(JSON.stringify(arr));
         checkArray[move[0]][move[1]] = playerNumber;
         return win_comb(playerNumber * 3, checkArray);

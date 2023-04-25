@@ -115,7 +115,6 @@ let GAME = (function() {
             ev.preventDefault();
             squareChoice = ev.target // for desktop users
         } else {
-            ev.preventDefault();
             squareChoice = ev // for mobile device users
         };
 

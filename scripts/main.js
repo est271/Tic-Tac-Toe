@@ -115,6 +115,7 @@ let GAME = (function() {
             ev.preventDefault();
             squareChoice = ev.target // for desktop users
         } else {
+            ev.preventDefault();
             squareChoice = ev // for mobile device users
         };
 
@@ -144,13 +145,14 @@ let GAME = (function() {
                 // disable the draggable attribute of the drag square opposite of what the player
                 // initially dropped. so the player doesn't accidentally drop the computer square.
                 if (unq_id === 1){
+                    let cpuOff = null;
                     if (dragged.id === 'first-x'){
-                        document.querySelector('.drag-container :nth-child(2)').style.opacity = cpuFade;
-                        document.querySelector('.drag-container :nth-child(2)').draggable = false;
+                        cpuOff = document.querySelector('.drag-container :nth-child(2)')
                     } else {
-                        document.querySelector('.drag-container :nth-child(1)').style.opacity = cpuFade;
-                        document.querySelector('.drag-container :nth-child(1)').draggable = false;
+                        cpuOff = document.querySelector('.drag-container :nth-child(1)')
                     }
+                    cpuOff.style.opacity = cpuFade;
+                    cpuOff.children[0].setAttribute('draggable', false);
                 }
                 
                 info_log();

@@ -6,7 +6,7 @@
 
 
 let GAME = (function() {
-    // game variables
+    // Game variables start...
     let dragged;
     let unq_id = 0;
     let game_win = 0;
@@ -30,6 +30,14 @@ let GAME = (function() {
     // Electronic_Chime_sound.mp3 (shortened by me for ease of use)
     // See Electronic_Chime_sound.txt for license info
     let mySound = new Audio('./sounds/e_chime.mp3');
+
+    const sqrClass = 'square';
+    const redBorder = '3px dashed red';
+    const blkBorder = '3px solid black';
+    const cpuFade = '0.3';
+    const xValue = 1;
+    const oValue = 10;
+    // Game variables end...
 
 
     const drag_sq = document.querySelectorAll('.mv-sq-x, .mv-sq-o');
@@ -56,11 +64,11 @@ let GAME = (function() {
                 ev.changedTouches[0].pageY
             );
 
-            if (ev.target.draggable && dragOverTarget.className === 'square'){
+            if (ev.target.draggable && dragOverTarget.className === sqrClass){
                 document.querySelectorAll('.square').forEach((sq) => {
-                    sq.style.border = '3px solid black';
+                    sq.style.border = blkBorder;
                 });
-                dragOverTarget.style.border = '3px dashed red';
+                dragOverTarget.style.border = redBorder;
             }
         });
 
@@ -84,15 +92,15 @@ let GAME = (function() {
         });
         addEventListener('dragenter', (ev) => {
             ev.preventDefault();
-            if (ev.target.className === 'square' && game_win === 0){
-                ev.target.style.border = '3px dashed red';
+            if (ev.target.className === sqrClass && game_win === 0){
+                ev.target.style.border = redBorder;
             }
             return;
         });
         addEventListener('dragleave', (ev) => {
             ev.preventDefault();
-            if (ev.target.className === 'square'){
-                ev.target.style.border = '3px solid black';
+            if (ev.target.className === sqrClass){
+                ev.target.style.border = blkBorder;
             }
             return;
         });
@@ -110,8 +118,8 @@ let GAME = (function() {
             squareChoice = ev // for mobile device users
         };
 
-        if (squareChoice.className === 'square' && game_win === 0){
-            squareChoice.style.border = '3px solid black';
+        if (squareChoice.className === sqrClass && game_win === 0){
+            squareChoice.style.border = blkBorder;
 
             // if the square does not have a child continue with the operations.
             // also check dragged element id to see if its the original X or O player square.
@@ -137,10 +145,10 @@ let GAME = (function() {
                 // initially dropped. so the player doesn't accidentally drop the computer square.
                 if (unq_id === 1){
                     if (dragged.id === 'first-x'){
-                        document.querySelector('.drag-container :nth-child(2)').style.opacity = '0.3';
+                        document.querySelector('.drag-container :nth-child(2)').style.opacity = cpuFade;
                         document.querySelector('.drag-container :nth-child(2)').draggable = false;
                     } else {
-                        document.querySelector('.drag-container :nth-child(1)').style.opacity = '0.3';
+                        document.querySelector('.drag-container :nth-child(1)').style.opacity = cpuFade;
                         document.querySelector('.drag-container :nth-child(1)').draggable = false;
                     }
                 }
@@ -202,24 +210,24 @@ let GAME = (function() {
 
         // update logic array depending on what player square was dropped
         if (e_drag === 'first-x'){
-            arr[r_index][c_index] = 1;
+            arr[r_index][c_index] = xValue;
         }
         else if(e_drag === 'first-o'){
-            arr[r_index][c_index] = 10;
+            arr[r_index][c_index] = oValue;
         }
     }
 
     function check_win(){
         let win_color;
 
-        if (win_comb(3, arr)) {
+        if (win_comb(3 * xValue, arr)) {
             game_win = 1;
             document.getElementById("results").innerHTML = game_log.x_won;
             win_color = 'yellow';
             mySound.play();
         }
 
-        if (win_comb(30, arr)) {
+        if (win_comb(3 * oValue, arr)) {
             game_win = 1;
             document.getElementById("results").innerHTML = game_log.o_won;
             win_color = 'green';
@@ -332,7 +340,7 @@ let GAME = (function() {
 
     // this is similar to dragDrop() but for the computers turn
     function dropComputer(target, dragSquare) {
-        if (target.className === 'square' && game_win === 0){
+        if (target.className === sqrClass && game_win === 0){
 
             if (target.children[0] === undefined
                 && (dragSquare.id === 'first-x' || dragSquare.id === 'first-o') ){
@@ -360,11 +368,11 @@ let GAME = (function() {
         let playerNumber;
 
         if (dragged.id === 'first-x'){
-            cpuNumber = 1;
-            playerNumber = 10;
+            cpuNumber = xValue;
+            playerNumber = oValue;
         } else {
-            cpuNumber = 10;
-            playerNumber = 1;
+            cpuNumber = oValue;
+            playerNumber = xValue;
         }
 
         // analyze every availabe square to see if there is a winning move for the computer
@@ -389,11 +397,11 @@ let GAME = (function() {
         return generateRandomMove(avMovesArray);
     }
 
-    function checkForWin (move, playerNumber) {
+    function checkForWin (move, winNumber) {
         // created checkArray this way to make a true non reference copy. otherwise arr will be modified
         let checkArray = JSON.parse(JSON.stringify(arr));
-        checkArray[move[0]][move[1]] = playerNumber;
-        return win_comb(playerNumber * 3, checkArray);
+        checkArray[move[0]][move[1]] = winNumber;
+        return win_comb(3 * winNumber, checkArray);
     }
 
     return {

@@ -10,6 +10,15 @@
     <meta name="description" content="Tic-Tac-Toe with Drag & Drop"/>
   </head>
   <body>
+    <div class="backdrop">
+      <div class="diff-modal">
+        <h1>Tic-Tac-Toe</h1>
+        <h2>Select Difficulty Level</h2>
+        <button class="btns" onClick="GAME.level(1)">Easy</button>
+        <button class="btns" onClick="GAME.level(2)">Medium</button>
+        <button class="btns" onClick="GAME.level(3)">Hard</button>
+      </div>
+    </div>
     <div class="canvas-outer">
       <div class="canvas-inner">
         <div class="game-title">Tic-Tac-Toe</div>

@@ -14,6 +14,7 @@ body{
   background-color: #669999;
   border-radius: 10px;
   padding-bottom: 10px;
+  z-index: 1;
 }
 
 .canvas-inner{
@@ -163,4 +164,55 @@ body{
     overflow-y:scroll;
     -webkit-overflow-scrolling: touch;
   }
+}
+
+/*   difficulty modal stuff  */
+
+.backdrop{
+  width: 100%;
+  height: 100%;
+  position: fixed;
+  z-index: 5;
+  left: 0;
+  top: 0;
+  background-color: #669999;
+  opacity: 1;
+  color: #000;
+}
+
+.diff-modal{
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  margin-top: 25px;
+  width: 100%;
+  border: 4px solid white;
+  border-radius: 10px;
+  box-sizing: border-box;
+  transition: all 0.3s ease-out;
+  color: #000;
+}
+
+.btns{
+  height: auto;
+  width: auto;
+  padding: 10px 30px;
+  margin: 20px;
+  border-radius: 10px;
+  border: 3px solid blue;
+  cursor: pointer;
+  font-size: 20px;
+  color: inherit;
+  background-color: #c1f3c1;
+}
+
+.modal-show{
+  transform: translateY(0);
+  opacity: 1;
+}
+
+.modal-hide{
+  transform: translateY(-100vh);
+  opacity: 0;
 }

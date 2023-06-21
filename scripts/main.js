@@ -278,9 +278,11 @@ let GAME = (function() {
 
         let availableMoves = getAvailableMoves(arr);
 
-        // later I will give the option of playing 'easy' or 'hard' mode and run either one of the 2 lines below
-        // const cpu_move = generateRandomMove(availableMoves);
-        const cpu_move = generateMove(availableMoves);
+        let cpu_move = null;
+
+        if (diff_select === 1){
+            cpu_move = generateRandomMove(availableMoves);
+        } else cpu_move = generateMove(availableMoves);
 
         if (cpu_move){
             initiateMove(cpu_move);

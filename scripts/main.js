@@ -10,6 +10,7 @@ let GAME = (function() {
     let dragged;
     let unq_id = 0;
     let game_win = 0;
+    let diff_select = 0;
 
     // game logic array
     let arr = [
@@ -405,11 +406,20 @@ let GAME = (function() {
         return win_comb(3 * winNumber, checkArray);
     }
 
+    function difficultySelect (lvl) {
+        if (lvl >= 1 && lvl <= 3) {
+            diff_select = lvl;
+            document.querySelector('.backdrop').classList.add('modal-hide');
+        } else console.log("an Error ocurred")
+        return;
+    }
+
     return {
         resetbtn: function () {
             window.location.reload();
         },
-        start_info: info_log
+        start_info: info_log,
+        level: difficultySelect
     };
 
 })();

@@ -178,6 +178,7 @@ body{
   background-color: #669999;
   opacity: 1;
   color: #000;
+  transition: all 0.3s ease-out;
 }
 
 .diff-modal{
@@ -190,7 +191,6 @@ body{
   border: 4px solid white;
   border-radius: 10px;
   box-sizing: border-box;
-  transition: all 0.3s ease-out;
   color: #000;
 }
 
@@ -205,11 +205,6 @@ body{
   font-size: 20px;
   color: inherit;
   background-color: #c1f3c1;
-}
-
-.modal-show{
-  transform: translateY(0);
-  opacity: 1;
 }
 
 .modal-hide{

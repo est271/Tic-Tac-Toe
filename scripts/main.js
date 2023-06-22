@@ -379,6 +379,11 @@ let GAME = (function() {
             playerNumber = xValue;
         }
 
+        if (unq_id === 1 && diff_select === 3 && arr[1][1] === 0){
+            console.log('hard');
+            return([1,1]);
+        }
+
         // analyze every availabe square to see if there is a winning move for the computer
         let compWin = false;
         for (let x = 0; x < avMovesArray.length; x++){

@@ -11,6 +11,8 @@ let GAME = (function() {
     let unq_id = 0;
     let game_win = 0;
     let diff_select = 0;
+    const cross = [[0,1],[1,0],[1,2],[2,1]];
+    const crner = [[0,0],[0,2],[2,0],[2,2]];
 
     // game logic array
     let arr = [
@@ -379,9 +381,35 @@ let GAME = (function() {
             playerNumber = xValue;
         }
 
-        if (unq_id === 1 && diff_select === 3 && arr[1][1] === 0){
-            console.log('hard');
-            return([1,1]);
+        // hard mode stuff
+        if (diff_select === 3){
+            // console.log(arr); ......TESTING............................
+
+            if (unq_id === 1){
+                if (arr[1][1] === 0) {
+                    return([1,1]);
+                } else {
+                    return crner[Math.floor(Math.random() * crner.length)]
+                }
+            } else if (unq_id === 3){
+                if ( (arr[0][0] === playerNumber && arr[2][2] === playerNumber)
+                    || (arr[0][2] === playerNumber && arr[2][0] === playerNumber) ){
+                    for (let z = 0; z < 10; z++){
+                        const cr_choice = cross[Math.floor(Math.random() * cross.length)];
+                        if (arr[cr_choice[0]][cr_choice[1]] === 0){
+                            return cr_choice;
+                        }
+                    }
+                } else if ( (arr[0][0] !== 0 && arr[1][1] !== 0 && arr[2][2] !== 0)
+                    || (arr[0][2] !== 0 && arr[1][1] !== 0 && arr[2][0] !== 0) ){
+                    for (let zz = 0; zz < 10; zz++){
+                        const corner_choice = crner[Math.floor(Math.random() * crner.length)];
+                        if (arr[corner_choice[0]][corner_choice[1]] === 0){
+                            return corner_choice;
+                        }
+                    }
+                }
+            }
         }
 
         // analyze every availabe square to see if there is a winning move for the computer
@@ -417,7 +445,7 @@ let GAME = (function() {
         if (lvl >= 1 && lvl <= 3) {
             diff_select = lvl;
             document.querySelector('.backdrop').classList.add('modal-hide');
-        } else console.log("an Error ocurred")
+        } else console.log("an Error ocurred") // maybe use throw(error)
         return;
     }
 
@@ -433,3 +461,4 @@ let GAME = (function() {
 
 // function to run when the game first starts
 GAME.start_info();
+GAME.level(3);  // TESTING..................................................

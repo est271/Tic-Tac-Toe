@@ -412,19 +412,15 @@ let GAME = (function() {
         }
 
         // analyze every availabe square to see if there is a winning move for the computer
-        let compWin = false;
         for (let x = 0; x < avMovesArray.length; x++){
-            compWin = checkForWinBlock(avMovesArray[x], cpuNumber);
-            if (compWin) {
+            if (checkForWinBlock(avMovesArray[x], cpuNumber)) {
                 return avMovesArray[x];
             }
         }
 
         // if no winning moves, analyze every availabe square to see if the computer can block a player win
-        let compBlock = false;
         for (let y = 0; y < avMovesArray.length; y++){
-            compBlock = checkForWinBlock(avMovesArray[y], playerNumber);
-            if (compBlock) {
+            if (checkForWinBlock(avMovesArray[y], playerNumber)) {
                 return avMovesArray[y];
             }
         }

@@ -455,7 +455,7 @@ let GAME = (function() {
         if (lvl >= 1 && lvl <= 3) {
             diff_select = lvl;
             document.querySelector('.backdrop').classList.add('modal-hide');
-        } else console.log("an Error ocurred"); // maybe use throw(error)
+        } else throw new Error("an Error ocurred during level selection");
         return;
     }
 
@@ -464,7 +464,13 @@ let GAME = (function() {
             window.location.reload();
         },
         start_info: info_log,
-        level: difficultySelect
+        level: function (lvl_try) {
+            try {
+                difficultySelect(lvl_try);
+            } catch(e){
+                console.error(e);
+            }
+        }
     };
 
 })();

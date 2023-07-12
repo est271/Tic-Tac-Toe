@@ -116,10 +116,10 @@ let GAME = (function() {
         let squareChoice = null;
         if (ev.target) {
             ev.preventDefault();
-            squareChoice = ev.target // for desktop users
+            squareChoice = ev.target; // for desktop users
         } else {
-            squareChoice = ev // for mobile device users
-        };
+            squareChoice = ev; // for mobile device users
+        }
 
         if (squareChoice.className === sqrClass && game_win === 0){
             squareChoice.style.border = blkBorder;
@@ -149,9 +149,9 @@ let GAME = (function() {
                 if (unq_id === 1){
                     let cpuOff = null;
                     if (dragged.id === 'first-x'){
-                        cpuOff = document.querySelector('.drag-container :nth-child(2)')
+                        cpuOff = document.querySelector('.drag-container :nth-child(2)');
                     } else {
-                        cpuOff = document.querySelector('.drag-container :nth-child(1)')
+                        cpuOff = document.querySelector('.drag-container :nth-child(1)');
                     }
                     cpuOff.style.opacity = cpuFade;
                     cpuOff.children[0].setAttribute('draggable', false);
@@ -383,13 +383,12 @@ let GAME = (function() {
 
         // hard mode stuff
         if (diff_select === 3){
-            console.log(avMovesArray); // ......TESTING............................
 
             if (unq_id === 1){
                 if (arr[1][1] === 0) {
                     return([1,1]);
                 } else {
-                    return crner[Math.floor(Math.random() * crner.length)]
+                    return crner[Math.floor(Math.random() * crner.length)];
                 }
             } else if (unq_id === 3){
                 if ( (arr[0][0] === playerNumber && arr[2][2] === playerNumber)
@@ -448,7 +447,7 @@ let GAME = (function() {
         if (lvl >= 1 && lvl <= 3) {
             diff_select = lvl;
             document.querySelector('.backdrop').classList.add('modal-hide');
-        } else console.log("an Error ocurred") // maybe use throw(error)
+        } else console.log("an Error ocurred"); // maybe use throw(error)
         return;
     }
 
@@ -464,4 +463,3 @@ let GAME = (function() {
 
 // function to run when the game first starts
 GAME.start_info();
-GAME.level(3);  // TESTING..................................................

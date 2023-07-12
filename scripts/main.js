@@ -399,6 +399,14 @@ let GAME = (function() {
                     || (arr[0][2] !== 0 && arr[1][1] !== 0 && arr[2][0] !== 0) ){
                     return outerSqrCheck(crner);
 
+                } else if (arr[0][1] === playerNumber && arr[1][0] === playerNumber){
+                    return([0,0]);
+                } else if (arr[0][1] === playerNumber && arr[1][2] === playerNumber){
+                    return([0,2]);
+                } else if (arr[2][1] === playerNumber && arr[1][0] === playerNumber){
+                    return([2,0]);
+                } else if (arr[2][1] === playerNumber && arr[1][2] === playerNumber){
+                    return([2,2]);
                 }
             }
         }

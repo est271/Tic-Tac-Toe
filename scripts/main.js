@@ -383,7 +383,7 @@ let GAME = (function() {
 
         // hard mode stuff
         if (diff_select === 3){
-            // console.log(arr); ......TESTING............................
+            console.log(avMovesArray); // ......TESTING............................
 
             if (unq_id === 1){
                 if (arr[1][1] === 0) {
@@ -394,20 +394,12 @@ let GAME = (function() {
             } else if (unq_id === 3){
                 if ( (arr[0][0] === playerNumber && arr[2][2] === playerNumber)
                     || (arr[0][2] === playerNumber && arr[2][0] === playerNumber) ){
-                    for (let z = 0; z < 10; z++){
-                        const cr_choice = cross[Math.floor(Math.random() * cross.length)];
-                        if (arr[cr_choice[0]][cr_choice[1]] === 0){
-                            return cr_choice;
-                        }
-                    }
+                    return outerSqrCheck(cross);
+
                 } else if ( (arr[0][0] !== 0 && arr[1][1] !== 0 && arr[2][2] !== 0)
                     || (arr[0][2] !== 0 && arr[1][1] !== 0 && arr[2][0] !== 0) ){
-                    for (let zz = 0; zz < 10; zz++){
-                        const corner_choice = crner[Math.floor(Math.random() * crner.length)];
-                        if (arr[corner_choice[0]][corner_choice[1]] === 0){
-                            return corner_choice;
-                        }
-                    }
+                    return outerSqrCheck(crner);
+
                 }
             }
         }
@@ -415,7 +407,7 @@ let GAME = (function() {
         // analyze every availabe square to see if there is a winning move for the computer
         let compWin = false;
         for (let x = 0; x < avMovesArray.length; x++){
-            compWin = checkForWin(avMovesArray[x], cpuNumber);
+            compWin = checkForWinBlock(avMovesArray[x], cpuNumber);
             if (compWin) {
                 return avMovesArray[x];
             }
@@ -424,7 +416,7 @@ let GAME = (function() {
         // if no winning moves, analyze every availabe square to see if the computer can block a player win
         let compBlock = false;
         for (let y = 0; y < avMovesArray.length; y++){
-            compBlock = checkForWin(avMovesArray[y], playerNumber);
+            compBlock = checkForWinBlock(avMovesArray[y], playerNumber);
             if (compBlock) {
                 return avMovesArray[y];
             }
@@ -434,11 +426,22 @@ let GAME = (function() {
         return generateRandomMove(avMovesArray);
     }
 
-    function checkForWin (move, winNumber) {
+    function checkForWinBlock (move, winNumber) {
         // created checkArray this way to make a true non reference copy. otherwise arr will be modified
         let checkArray = JSON.parse(JSON.stringify(arr));
         checkArray[move[0]][move[1]] = winNumber;
         return win_comb(3 * winNumber, checkArray);
+    }
+
+    function outerSqrCheck (arr_selec) {
+        // This function will randomly check if one of the squares in arr_selec is available
+        for (let z = 0; z < 10; z++){
+            const outer_choice = arr_selec[Math.floor(Math.random() * arr_selec.length)];
+            if (arr[outer_choice[0]][outer_choice[1]] === 0){
+                return outer_choice;
+            }
+        }
+        return;
     }
 
     function difficultySelect (lvl) {

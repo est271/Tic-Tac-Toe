@@ -393,11 +393,11 @@ let GAME = (function() {
             } else if (unq_id === 3){
                 if ( (arr[0][0] === playerNumber && arr[2][2] === playerNumber)
                     || (arr[0][2] === playerNumber && arr[2][0] === playerNumber) ){
-                    return outerSqrCheck(cross);
+                    return outerSqrCheck(cross, avMovesArray);
 
                 } else if ( (arr[0][0] !== 0 && arr[1][1] !== 0 && arr[2][2] !== 0)
                     || (arr[0][2] !== 0 && arr[1][1] !== 0 && arr[2][0] !== 0) ){
-                    return outerSqrCheck(crner);
+                    return outerSqrCheck(crner, avMovesArray);
 
                 } else if (arr[0][1] === playerNumber && arr[1][0] === playerNumber){
                     return([0,0]);
@@ -436,15 +436,18 @@ let GAME = (function() {
         return win_comb(3 * winNumber, checkArray);
     }
 
-    function outerSqrCheck (arr_selec) {
+    function outerSqrCheck (arr_selec, avArray) {
         // This function will randomly check if one of the squares in arr_selec is available
-        for (let z = 0; z < 10; z++){
-            const outer_choice = arr_selec[Math.floor(Math.random() * arr_selec.length)];
-            if (arr[outer_choice[0]][outer_choice[1]] === 0){
-                return outer_choice;
+        let bestMoves = [];
+        for (let z = 0; z < arr_selec.length; z++){
+            for (let zz = 0; zz < avArray.length; zz++){
+                if (arr_selec[z][0] === avArray[zz][0] && arr_selec[z][1] === avArray[zz][1]){
+                    bestMoves.push(arr_selec[z]);
+                    break;
+                }
             }
         }
-        return;
+        return bestMoves[Math.floor(Math.random() * bestMoves.length)];
     }
 
     function difficultySelect (lvl) {

@@ -437,7 +437,7 @@ let GAME = (function() {
     }
 
     function outerSqrCheck (arr_selec, avArray) {
-        // This function will randomly check if one of the squares in arr_selec is available
+        // This function will randomly select one of the squares in arr_selec, if available
         let bestMoves = [];
         for (let z = 0; z < arr_selec.length; z++){
             for (let zz = 0; zz < avArray.length; zz++){

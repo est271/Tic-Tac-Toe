@@ -6,6 +6,7 @@ body{
   -moz-user-select: none;
   -ms-user-select: none;
   user-select: none;
+  font-family: 'Itim', sans-serif;
 }
 
 .canvas-outer{
@@ -30,7 +31,7 @@ body{
   border: 3px solid #000;
   border-radius: 10px;
   text-align: center;
-  font: bold 2rem sans-serif;
+  font: bold 2rem 'Itim', sans-serif;
 }
 
 .info{
@@ -47,7 +48,7 @@ body{
   background-color: black;
   color: white;
   border-radius: 5px;
-  font: 23px sans-serif;
+  font: 23px 'Itim', sans-serif;
   padding: 0px 5px 0px 5px;
   line-height: 25px;
 }
@@ -55,7 +56,7 @@ body{
   height: 45px;
   width: 18vw;
   margin: 0px 0px 0px 24px;
-  font: 20px sans-serif;
+  font: 20px 'Itim', sans-serif;
   border-radius: 10px;
   border: 3px solid blue;
   cursor: pointer;
@@ -72,7 +73,7 @@ body{
   border: 3px solid #000;
   border-radius: 10px;
   text-align: center;
-  font: 1.3rem sans-serif;
+  font: 1.3rem 'Itim', sans-serif;
   padding: 5px;
 }
 .mv-sq-x{
@@ -129,10 +130,10 @@ body{
 /*   when the screen-W is less than 700px & screen-H is less than 650px   */
 @media (max-width: 43.75em) and (max-height: 40.62em) {
   #results{
-    font: 15px sans-serif;
+    font: 15px 'Itim', sans-serif;
   }
   #reset{
-    font: 12px sans-serif;
+    font: 12px 'Itim', sans-serif;
   }
 }
 
@@ -202,7 +203,7 @@ body{
   border-radius: 10px;
   border: 3px solid blue;
   cursor: pointer;
-  font-size: 20px;
+  font: 20px 'Itim', sans-serif;
   color: inherit;
   background-color: #c1f3c1;
 }

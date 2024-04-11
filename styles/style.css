@@ -212,3 +212,12 @@ body{
   transform: translateY(-100vh);
   opacity: 0;
 }
+
+#lvl-txt {
+  border: 1px solid blue;
+  border-radius: 10px;
+  color: white;
+  background-color: black;
+  padding: 2px 5px;
+  font: 17px sans-serif;
+}

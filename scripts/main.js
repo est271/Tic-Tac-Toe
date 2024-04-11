@@ -156,7 +156,7 @@ let GAME = (function() {
                     cpuOff.style.opacity = cpuFade;
                     cpuOff.children[0].setAttribute('draggable', false);
                 }
-                
+
                 info_log();
 
                 computerTurn();
